@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zadania JavaScript 1-5</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+  }
+  section {
+    background: white;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+  h2 {
+    color: #2a5d9f;
+  }
+  #zegar {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  input[type=number] {
+    width: 150px;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  button {
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  #wynik {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  #parzysteLiczby {
+    margin-top: 10px;
+    font-family: monospace;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+
+<section>
+  <h2>Zadanie 1: Alert po kliknięciu</h2>
+  <h1 id="tekst">Witaj!</h1>
+  <button onclick="pokazAlert()">Kliknij mnie</button>
+</section>
+
+<section>
+  <h2>Zadanie 2: Liczby parzyste od 0 do 100</h2>
+  <button onclick="wypiszParzyste()">Pokaż liczby parzyste</button>
+  <div id="parzysteLiczby"></div>
+</section>
+
+<section>
+  <h2>Zadanie 3: Dodawanie dwóch liczb</h2>
+  <button onclick="dodajLiczby()">Podaj dwie liczby i zobacz sumę</button>
+</section>
+
+<section>
+  <h2>Zadanie 4: Aktualny czas (odświeżany co sekundę)</h2>
+  <div id="zegar">Ładowanie czasu...</div>
+</section>
+
+<section>
+  <h2>Zadanie 5: Gra w zgadywanie liczby</h2>
+  <input type="number" id="zgadnijLiczbe" placeholder="Wpisz liczbę 0-100" min="0" max="100" />
+  <button onclick="sprawdzLiczbe()">Sprawdź</button>
+  <p id="wynik"></p>
+</section>
+
+<script>
+  // Zadanie 1
+  function pokazAlert() {
+    alert("Witaj na mojej stronie!");
+  }
+
+  // Zadanie 2
+  function wypiszParzyste() {
+    const div = document.getElementById("parzysteLiczby");
+    let tekst = "";
+    for (let i = 0; i <= 100; i += 2) {
+      tekst += i + " ";
+    }
+    div.textContent = tekst.trim();
+  }
+
+  // Zadanie 3
+  function dodajLiczby() {
+    const liczba1 = parseInt(prompt("Podaj pierwszą liczbę całkowitą:"));
+    const liczba2 = parseInt(prompt("Podaj drugą liczbę całkowitą:"));
+    if (isNaN(liczba1) || isNaN(liczba2)) {
+      alert("Proszę podać prawidłowe liczby całkowite.");
+      return;
+    }
+    const suma = liczba1 + liczba2;
+    alert("Suma podanych liczb to: " + suma);
+  }
+
+  // Zadanie 4
+  function pokazCzas() {
+    const teraz = new Date();
+    const godzina = teraz.toLocaleTimeString();
+    document.getElementById("zegar").textContent = godzina;
+  }
+  setInterval(pokazCzas, 1000);
+  pokazCzas();
+
+  // Zadanie 5
+  let wylosowanaLiczba = Math.floor(Math.random() * 101);
+  let liczbaProb = 0;
+
+  function sprawdzLiczbe() {
+    const input = document.getElementById("zgadnijLiczbe");
+    const wynik = document.getElementById("wynik");
+    const zgadnieta = parseInt(input.value);
+
+    if (isNaN(zgadnieta) || zgadnieta < 0 || zgadnieta > 100) {
+      wynik.textContent = "Proszę wpisać liczbę od 0 do 100.";
+      return;
+    }
+
+    liczbaProb++;
+
+    if (zgadnieta === wylosowanaLiczba) {
+      alert(`Gratulacje! Zgadłeś liczbę ${wylosowanaLiczba} w ${liczbaProb} próbach.`);
+      location.reload();
+    } else if (zgadnieta < wylosowanaLiczba) {
+      wynik.textContent = "Podana liczba jest za mała.";
+    } else {
+      wynik.textContent = "Podana liczba jest za duża.";
+    }
+
+    input.value = "";
+    input.focus();
+  }
+</script>
+
+</body>
+</html>
