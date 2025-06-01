@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Laboratorium 6 – Zadania JavaScript</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h2 { margin-top: 40px; color: darkgreen; }
+    button { margin: 5px; }
+    .active { background-color: yellow; }
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Zadania – Laboratorium 6</h1>
+
+  <h2>Zadanie 1 – Silnia</h2>
+  <input type="number" id="factorialInput" placeholder="Podaj liczbę">
+  <button onclick="obliczSilnie()">Oblicz silnię</button>
+  <div id="output-silnia"></div>
+
+  <h2>Zadanie 2 – Zmiana koloru przycisku</h2>
+  <button onclick="zmienKolor(this)">Przycisk 1</button>
+  <button onclick="zmienKolor(this)">Przycisk 2</button>
+  <button onclick="zmienKolor(this)">Przycisk 3</button>
+
+  <h2>Zadanie 3 – Pokaz/Ukryj element</h2>
+  <button onclick="toggleWidocznosc()">Pokaż/Ukryj tekst</button>
+  <div id="elementDoUkrycia" style="display: block;">To jest widoczny element.</div>
+
+  <h2>Zadanie 4 – Lista z pól tekstowego</h2>
+  <input type="text" id="tekstDoListy" placeholder="Wpisz coś">
+  <button onclick="dodajDoListy()">Dodaj do listy</button>
+  <ul id="lista"></ul>
+
+  <h2>Zadanie 5 – Tabela z imieniem i nazwiskiem</h2>
+  <input type="text" id="imie" placeholder="Imię">
+  <input type="text" id="nazwisko" placeholder="Nazwisko">
+  <button onclick="dodajDoTabeli()">Dodaj do tabeli</button>
+  <table>
+    <thead>
+      <tr><th>Imię</th><th>Nazwisko</th></tr>
+    </thead>
+    <tbody id="tabela"></tbody>
+  </table>
+
+  <script>
+    // Zadanie 1
+    function obliczSilnie() {
+      const n = parseInt(document.getElementById("factorialInput").value);
+      let wynik = 1;
+      for (let i = 2; i <= n; i++) wynik *= i;
+      document.getElementById("output-silnia").innerText = `Silnia z ${n} to ${wynik}`;
+    }
+
+    // Zadanie 2
+    function zmienKolor(clickedButton) {
+      document.querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+      clickedButton.classList.add("active");
+    }
+
+    // Zadanie 3
+    function toggleWidocznosc() {
+      const el = document.getElementById("elementDoUkrycia");
+      el.style.display = el.style.display === "none" ? "block" : "none";
+    }
+
+    // Zadanie 4
+    function dodajDoListy() {
+      const wartosc = document.getElementById("tekstDoListy").value;
+      if (wartosc.trim() !== "") {
+        const li = document.createElement("li");
+        li.textContent = wartosc;
+        document.getElementById("lista").appendChild(li);
+        document.getElementById("tekstDoListy").value = "";
+      }
+    }
+
+    // Zadanie 5
+    function dodajDoTabeli() {
+      const imie = document.getElementById("imie").value;
+      const nazwisko = document.getElementById("nazwisko").value;
+      if (imie.trim() && nazwisko.trim()) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${imie}</td><td>${nazwisko}</td>`;
+        document.getElementById("tabela").appendChild(tr);
+        document.getElementById("imie").value = "";
+        document.getElementById("nazwisko").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
