@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Zadania z JavaScript – Obiekty i Operacje</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h2 { margin-top: 40px; color: darkblue; }
+    pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Zadania JavaScript – Logika i Tablice</h1>
+
+  <h2>Zadanie 1 – Sprawdzenie pełnoletniości</h2>
+  <button onclick="sprawdzWiek()">Podaj wiek</button>
+  <div id="output-wiek"></div>
+
+  <h2>Zadanie 2 – Konwersja Celsjusz → Fahrenheit</h2>
+  <button onclick="konwertujTemperaturę()">Podaj temperaturę</button>
+  <div id="output-temp"></div>
+
+  <h2>Zadanie 3 – Operacje na tablicy</h2>
+  <button onclick="operacjeNaTablicy()">Wykonaj operacje</button>
+  <div id="output-tablica"></div>
+
+  <h2>Zadanie 4 – Ciąg Fibonacciego</h2>
+  <button onclick="pokazCiagFibonacciego()">Pokaż 100 liczb Fibonacciego</button>
+  <div id="output-fibo" style="white-space: pre-wrap; margin-top: 20px;"></div>
+
+  <script>
+    // Zadanie 1
+    function sprawdzWiek() {
+      const wiek = parseInt(prompt("Podaj swój wiek:"));
+      const komunikat = wiek >= 18 ? "Jesteś pełnoletni." : "Nie jesteś pełnoletni.";
+      document.getElementById("output-wiek").innerText = komunikat;
+    }
+
+    // Zadanie 2
+    function konwertujTemperaturę() {
+      const celsjusz = parseFloat(prompt("Podaj temperaturę w stopniach Celsjusza:"));
+      const fahrenheit = (celsjusz * 9 / 5) + 32;
+      const wynik = `Temperatura w Fahrenheitach: ${fahrenheit.toFixed(2)}°F`;
+      document.getElementById("output-temp").innerText = wynik;
+    }
+
+    // Zadanie 3
+    function operacjeNaTablicy() {
+      let tablica = [4, 8, 15, 16, 23, 42];
+      const numerAlbumu = 71423;
+      const suma = tablica.reduce((a, b) => a + b, 0);
+      const parzyste = tablica.filter(n => n % 2 === 0);
+      const pomnozone = tablica.map(n => n * 3);
+      tablica.push(numerAlbumu);
+      const indexNumeru = tablica.indexOf(numerAlbumu);
+      const srednia = tablica.reduce((a, b) => a + b, 0) / tablica.length;
+      const maks = Math.max(...tablica);
+      const wartosc = 16;
+      const iloscWystapien = tablica.filter(n => n === wartosc).length;
+
+      const wynik = `Tablica: ${tablica.join(", ")}
+Suma: ${suma}
+Parzyste: ${parzyste.join(", ")}
+Pomnożone razy 3: ${pomnozone.join(", ")}
+Index numeru albumu (${numerAlbumu}): ${indexNumeru}
+Średnia: ${srednia.toFixed(2)}
+Największa liczba: ${maks}
+Liczba wystąpień wartości ${wartosc}: ${iloscWystapien}`;
+
+      document.getElementById("output-tablica").innerText = wynik;
+    }
+
+    // Zadanie 4
+    function pokazCiagFibonacciego() {
+      const fib = [0, 1];
+      while (fib.length < 100) {
+        fib.push(fib[fib.length - 1] + fib[fib.length - 2]);
+      }
+      const wynik = `100 pierwszych liczb ciągu Fibonacciego:\n${fib.join(", ")}`;
+      document.getElementById("output-fibo").innerText = wynik;
+    }
+  </script>
+</body>
+</html>
