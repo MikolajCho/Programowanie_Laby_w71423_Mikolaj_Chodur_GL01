@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Zadania z obiektów JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    section {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+    }
+    #wynikProstokata {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Zadania JavaScript – Obiekty</h1>
+
+  <section>
+    <h2>Zadanie 1: Obiekt książka</h2>
+    <p id="infoKsiazka"></p>
+  </section>
+
+  <section>
+    <h2>Zadanie 2: Obiekt student i średnia ocen</h2>
+    <p id="sredniaStudenta"></p>
+  </section>
+
+  <section>
+    <h2>Zadanie 3 i 4: Obiekt samochód</h2>
+    <p id="infoSamochod"></p>
+  </section>
+
+  <section>
+    <h2>Zadanie 5 i 6: Obiekt prostokąt</h2>
+    <label>Długość a: <input type="number" id="bokA"></label>
+    <label>Długość b: <input type="number" id="bokB"></label>
+    <button onclick="utworzProstokat()">Oblicz</button>
+    <div id="wynikProstokata"></div>
+  </section>
+
+  <script>
+    // Zadanie 1
+    const ksiazka = {
+      tytul: "Lalka",
+      autor: "Bolesław Prus",
+      rok: 1890
+    };
+
+    function opisKsiazki(ksiazka) {
+      return `${ksiazka.tytul} - ${ksiazka.autor} (${ksiazka.rok})`;
+    }
+
+    document.getElementById("infoKsiazka").textContent = opisKsiazki(ksiazka);
+
+    // Zadanie 2
+    const student = {
+      imie: "Jan",
+      nazwisko: "Kowalski",
+      numerAlbumu: "12345",
+      oceny: [4, 5, 3]
+    };
+
+    const srednia = (student.oceny.reduce((a, b) => a + b, 0)) / student.oceny.length;
+    document.getElementById("sredniaStudenta").textContent = `Średnia ocen: ${srednia.toFixed(2)}`;
+
+    // Zadanie 3 i 4
+    const samochod = {
+      marka: "Toyota",
+      model: "Corolla",
+      rok: 2015,
+      kolor: "srebrny",
+      predkosc: 80,
+      zwiekszPredkosc: function (wartosc) {
+        this.predkosc += wartosc;
+      },
+      zmniejszPredkosc: function (wartosc) {
+        this.predkosc -= wartosc;
+      },
+      info: function () {
+        return `${this.marka} ${this.model} (${this.rok}), Kolor: ${this.kolor}, Prędkość: ${this.predkosc} km/h`;
+      },
+      wiek: function () {
+        const obecnyRok = new Date().getFullYear();
+        return obecnyRok - this.rok;
+      }
+    };
+
+    samochod.zwiekszPredkosc(20);
+    samochod.zmniejszPredkosc(10);
+    document.getElementById("infoSamochod").textContent = `${samochod.info()} | Wiek: ${samochod.wiek()} lat`;
+
+    // Zadanie 5 i 6
+    function utworzProstokat() {
+      const a = parseFloat(document.getElementById("bokA").value);
+      const b = parseFloat(document.getElementById("bokB").value);
+
+      if (isNaN(a) || isNaN(b) || a <= 0 || b <= 0) {
+        document.getElementById("wynikProstokata").textContent = "Podaj poprawne wartości boków.";
+        return;
+      }
+
+      const prostokat = {
+        a: a,
+        b: b,
+        pole: function () {
+          return this.a * this.b;
+        },
+        obwod: function () {
+          return 2 * (this.a + this.b);
+        },
+        czyKwadrat: function () {
+          return this.a === this.b;
+        }
+      };
+
+      const wynik = `Pole: ${prostokat.pole()} | Obwód: ${prostokat.obwod()} | ${prostokat.czyKwadrat() ? "To kwadrat" : "To nie jest kwadrat"}`;
+      document.getElementById("wynikProstokata").textContent = wynik;
+    }
+  </script>
+
+</body>
+</html>
